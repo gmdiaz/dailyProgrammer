@@ -14,7 +14,7 @@ class Key:
                     self.keyDict[char] = (x,y)
                     #print(line[x],x,y)
 
-    def getPosition(char):
+    def getPosition(self,char):
         return self.keyDict[char]
 
 class Puzzle:
@@ -28,12 +28,22 @@ class Puzzle:
             for x in range(len(line)):
                 char = line[x]
                 self.puzzleDict[(x,y)]=char
-        print(self.puzzleDict)
 
     def moveRight(self,pos):
-        print(pos)
         x,y = pos
         return self.puzzleDict[(x+1,y)]
+    
+    def moveLeft(self,pos):
+        x,y = pos
+        return self.puzzleDict[(x-1,y)]
+
+    def moveUp(self,pos):
+        x,y = pos
+        return self.puzzleDict[(x,y-1)]
+
+    def moveDown(self,pos):
+        x,y = pos
+        return self.puzzleDict[(x,y+1)]
 
 def readFile(filename):
     f = open(filename, 'r')
@@ -48,7 +58,22 @@ def main():
     encryptedStr, puzzleGrid = totalPuzz[-1], totalPuzz[0:len(totalPuzz)-1]
     
     puzzle = Puzzle(puzzleGrid)
-    print(puzzle.moveRight((3,0)))
+
+    for letter in encryptedStr:
+        currPos  = key.getPosition(letter)
+        currX,currY = currPos
+
+        while
+        if letter.isupper():
+            if currX == 0:
+                puzzle.moveRight(currPos)
+            else:
+                puzzle.moveUp(currPos)
+        else:
+            if currY == 0:
+                puzzle.moveDown(currPos)
+            else:
+                puzzle.moveLeft(currPos)
 
 if __name__ == "__main__":
     main()
