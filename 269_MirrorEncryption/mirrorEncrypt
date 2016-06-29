@@ -1,33 +1,45 @@
 #!/usr/bin/env python
 
 class Key:
-    def __init__(self,rawLines):
+    def __init__(self,lineArr):
         self.keyDict = {}
-        self._createDict(rawLines)
+        self._createDict(lineArr)
 
-    def _createDict(self,rawLines):
-        for y in range(len(rawLines)):
-            line = rawLines[y]
+    def _createDict(self,lineArr):
+        for y in range(len(lineArr)):
+            line = lineArr[y]
             for x in range(len(line)):
                 char = line[x]
                 if char != ' ':
                     self.keyDict[char] = (x,y)
-                    print(line[x],x,y)
+                    #print(line[x],x,y)
 
-def readKeyFile():
-    f = open('mirrorKey.txt', 'r')
+class Puzzle:
+    def __init__(self,lineArr):
+        self.puzzleDict = {}
+        self._createDict(lineArr)
+
+    def _createDict(self,lineArr):
+        for y in range(len(lineArr)):
+            line = lineArr[y]
+            for x in range(len(line)):
+                char = line[x]
+                self.puzzleDict[(x,y)]=char
+        print(self.puzzleDict)
+
+def readFile(filename):
+    f = open(filename, 'r')
     linesList = f.readlines()
     f.close()
     return [l.replace("\n","") for l in linesList]
 
-def keyMatrix(keyList):
-    array = []
-    for line in keyList:
-        array.append(list(line))
-    return array
-
 def main():
-    key = Key(readKeyFile())
+    key = Key(readFile("mirrorKey.txt"))
+    
+    totalPuzz = readFile("mirrorTest.txt")
+    encryptedStr, puzzleGrid = totalPuzz[-1], totalPuzz[0:len(totalPuzz)-1]
+    
+    puzzle = Puzzle(puzzleGrid)
 
 if __name__ == "__main__":
     main()
